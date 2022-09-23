@@ -10,10 +10,10 @@
     tools:showIn="@layout/activity_main">
 
     <RadioGroup
-        android:paddingStart="16dp"
         android:id="@+id/rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="16dp"
         app:layout_constraintBottom_toTopOf="@id/custom_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,8 +49,12 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
+        android:layout_marginBottom="16dp"
+        app:backgroundColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:text="Download Now"
+        app:textColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

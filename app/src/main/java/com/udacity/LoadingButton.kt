@@ -15,6 +15,9 @@ class LoadingButton @JvmOverloads constructor(
     private var heightSize = 0
     private var rectProgress = 0
     private var arcProgress = 0
+    private var backGColor = 0
+    private var textColor = 0
+    private var buttonText: String? = null
 
     private var paint = Paint().apply {
         color = resources.getColor(R.color.colorPrimary, null)
@@ -42,6 +45,25 @@ class LoadingButton @JvmOverloads constructor(
 
 
     init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.LoadingButton,
+            0, 0
+        ).apply {
+            try {
+                backGColor = getColor(
+                    R.styleable.LoadingButton_backgroundColor,
+                    resources.getColor(R.color.colorPrimary, null)
+                )
+                textColor = getColor(
+                    R.styleable.LoadingButton_textColor,
+                    resources.getColor(R.color.white, null)
+                )
+                buttonText = getString(R.styleable.LoadingButton_text)
+            } finally {
+                recycle()
+            }
+        }
         isClickable = true
         buttonState = ButtonState.Completed
     }
@@ -53,11 +75,11 @@ class LoadingButton @JvmOverloads constructor(
 
             ButtonState.Loading -> {
                 contentDescription = resources.getString(R.string.loading_button_text)
-                paint.color = resources.getColor(R.color.colorPrimary, null)
+                paint.color = backGColor
                 canvas.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), paint)
                 paint.color = resources.getColor(R.color.colorPrimaryDark, null)
                 canvas.drawRect(rectProgress.toFloat(), 0f, 0f, heightSize.toFloat(), paint)
-                paint.color = resources.getColor(R.color.white, null)
+                paint.color = textColor
                 canvas.drawText(
                     context.getString(R.string.loading_button_text),
                     (widthSize / 2).toFloat(),
@@ -78,11 +100,11 @@ class LoadingButton @JvmOverloads constructor(
             }
             else -> {
                 contentDescription = context.getString(R.string.download_text)
-                paint.color = resources.getColor(R.color.colorPrimary, null)
+                paint.color = backGColor
                 canvas.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), paint)
-                paint.color = resources.getColor(R.color.white, null)
+                paint.color = textColor
                 canvas.drawText(
-                    resources.getString(R.string.completed_button_text),
+                    buttonText ?: resources.getString(R.string.completed_button_text),
                     (widthSize / 2).toFloat(),
                     (heightSize / 2).toFloat() + 15,
                     paint

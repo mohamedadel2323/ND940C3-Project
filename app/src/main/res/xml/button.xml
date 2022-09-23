@@ -4,7 +4,7 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@id/start"
-        app:duration="500"/>
+        app:duration="1000"/>
 
 
     <ConstraintSet android:id="@+id/start">
